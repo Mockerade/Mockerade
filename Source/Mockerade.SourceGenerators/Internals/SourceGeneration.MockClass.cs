@@ -112,7 +112,7 @@ internal static partial class SourceGeneration
 				sb.Append("\t\t/// <summary>").AppendLine();
 				sb.Append("\t\t///     Raise events on the mock for <see cref=\"").Append(@class.ClassName).Append("\" />").AppendLine();
 				sb.Append("\t\t/// </summary>").AppendLine();
-				sb.Append("\t\tpublic MockRaises<").Append(@class.ClassName).Append("> Raise").Append(@class.ClassName).AppendLine();
+				sb.Append("\t\tpublic MockRaises<").Append(@class.ClassName).Append("> RaiseOn").Append(@class.ClassName).AppendLine();
 				sb.Append("\t\t\t=> new MockRaises<").Append(@class.ClassName).Append(">(mock.Setup);").AppendLine();
 			}
 			sb.AppendLine();
@@ -120,13 +120,13 @@ internal static partial class SourceGeneration
 			sb.Append("\t\t///     Check which methods got invoked on the mocked instance for <see cref=\"").Append(@class.ClassName).Append("\" />").AppendLine();
 			sb.Append("\t\t/// </summary>").AppendLine();
 			sb.Append("\t\tpublic MockInvoked<").Append(@class.ClassName).Append("> InvokedOn").Append(@class.ClassName).AppendLine();
-			sb.Append("\t\t\t=> new MockInvoked<").Append(@class.ClassName).Append(">.Proxy(mock.Invoked);").AppendLine();
+			sb.Append("\t\t\t=> new MockInvoked<").Append(@class.ClassName).Append(">.Proxy(mock.Invoked, ((IMock)mock).Invocations);").AppendLine();
 			sb.AppendLine();
 			sb.Append("\t\t/// <summary>").AppendLine();
 			sb.Append("\t\t///     Check which properties were accessed on the mocked instance for <see cref=\"").Append(@class.ClassName).Append("\" />").AppendLine();
 			sb.Append("\t\t/// </summary>").AppendLine();
 			sb.Append("\t\tpublic MockAccessed<").Append(@class.ClassName).Append("> AccessedOn").Append(@class.ClassName).AppendLine();
-			sb.Append("\t\t\t=> new MockAccessed<").Append(@class.ClassName).Append(">.Proxy(mock.Accessed);").AppendLine();
+			sb.Append("\t\t\t=> new MockAccessed<").Append(@class.ClassName).Append(">.Proxy(mock.Accessed, ((IMock)mock).Invocations);").AppendLine();
 			sb.AppendLine();
 			sb.Append("\t\t/// <summary>").AppendLine();
 			sb.Append("\t\t///     Exposes the mocked object instance of type <see cref=\"").Append(@class.ClassName).Append("\" />").AppendLine();

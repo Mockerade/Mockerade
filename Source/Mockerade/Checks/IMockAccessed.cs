@@ -6,11 +6,6 @@
 public interface IMockAccessed
 {
 	/// <summary>
-	/// Indicates whether (at least) one invocation was already triggered.
-	/// </summary>
-	bool IsAlreadyInvoked { get; }
-
-	/// <summary>
 	/// Counts the invocations for the getter of property with the given <paramref name="propertyName"/>.
 	/// </summary>
 	Invocation[] PropertyGetter(string propertyName);

@@ -31,6 +31,16 @@ public interface IMock
 	void Set(string propertyName, object? value);
 
 	/// <summary>
+	/// Gets the behavior settings used by this mock instance.
+	/// </summary>
+	MockBehavior Behavior { get; }
+
+	/// <summary>
+	///     Gets the collection of invocations recorded by the mock object.
+	/// </summary>
+	MockInvocations Invocations { get; }
+
+	/// <summary>
 	///     Raise events on the mock object.
 	/// </summary>
 	IMockRaises Raise { get; }
