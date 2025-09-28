@@ -11,7 +11,7 @@ namespace Mockerade.Checks;
 public class MockAccessed<T>(MockInvocations invocations) : IMockAccessed
 {
 	/// <summary>
-	/// A proxy implementation of <see cref="IMockSetup"/> that forwards all calls to the provided <paramref name="inner"/> instance.
+	/// A proxy implementation of <see cref="IMockAccessed"/> that forwards all calls to the provided <paramref name="inner"/> instance.
 	/// </summary>
 	public class Proxy(IMockAccessed inner, MockInvocations invocations) : MockAccessed<T>(invocations), IMockAccessed
 	{
