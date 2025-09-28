@@ -43,5 +43,5 @@ public interface IMock
 	/// <summary>
 	///     Check what happened with the mocked instance.
 	/// </summary>
-	IMockChecks Check { get; }
+	IMockInvoked Check { get; }
 }

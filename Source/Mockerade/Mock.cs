@@ -15,7 +15,8 @@ public abstract class Mock<T> : IMock
 	protected Mock(MockBehavior behavior)
 	{
 		Behavior = behavior;
-		Check = new MockChecks<T>();
+		Invoked = new MockInvoked<T>();
+		Accessed = new MockAccessed<T>();
 		Setup = new MockSetups<T>(this);
 		Raise = new MockRaises<T>(Setup);
 	}
@@ -26,12 +27,17 @@ public abstract class Mock<T> : IMock
 	public MockBehavior Behavior { get; }
 
 	/// <summary>
-	///     Check what happened with the mocked instance for <typeparamref name="T"/>.
+	///     Check which methods got invoked on the mocked instance for <typeparamref name="T"/>.
 	/// </summary>
-	public MockChecks<T> Check { get; }
+	public MockInvoked<T> Invoked { get; }
 
 	/// <summary>
-	///     Exposes the mocked object instance.
+	///     Check which properties were accessed on the mocked instance for <typeparamref name="T"/>.
+	/// </summary>
+	public MockAccessed<T> Accessed { get; }
+
+	/// <summary>
+	///     Exposes the mocked object instance of type <typeparamref name="T"/>.
 	/// </summary>
 	public abstract T Object { get; }
 
@@ -48,7 +54,7 @@ public abstract class Mock<T> : IMock
 	#region IMock
 
 	/// <inheritdoc cref="IMock.Check" />
-	IMockChecks IMock.Check => Check;
+	IMockInvoked IMock.Check => Invoked;
 
 	/// <inheritdoc cref="IMock.Raise" />
 	IMockRaises IMock.Raise => Raise;
@@ -59,7 +65,7 @@ public abstract class Mock<T> : IMock
 	/// <inheritdoc cref="IMock.Execute{TResult}(string, object?[])" />
 	MethodSetupResult<TResult> IMock.Execute<TResult>(string methodName, params object?[] parameters)
 	{
-		Invocation invocation = Check.RegisterInvocation(new MethodInvocation(methodName, parameters));
+		Invocation invocation = Invoked.RegisterInvocation(new MethodInvocation(methodName, parameters));
 
 		MethodSetup? matchingSetup = Setup.GetMethodSetup(invocation);
 		if (matchingSetup is null)
@@ -78,7 +84,7 @@ public abstract class Mock<T> : IMock
 	/// <inheritdoc cref="IMock.Execute(string, object?[])" />
 	MethodSetupResult IMock.Execute(string methodName, params object?[] parameters)
 	{
-		Invocation invocation = Check.RegisterInvocation(new MethodInvocation(methodName, parameters));
+		Invocation invocation = Invoked.RegisterInvocation(new MethodInvocation(methodName, parameters));
 
 		MethodSetup? matchingSetup = Setup.GetMethodSetup(invocation);
 		if (matchingSetup is null && Behavior.ThrowWhenNotSetup)
@@ -93,7 +99,7 @@ public abstract class Mock<T> : IMock
 	/// <inheritdoc cref="IMock.Set(string, object?)" />
 	void IMock.Set(string propertyName, object? value)
 	{
-		Invocation invocation = Check.RegisterInvocation(new PropertySetterInvocation(propertyName, value));
+		Invocation invocation = Invoked.RegisterInvocation(new PropertySetterInvocation(propertyName, value));
 		PropertySetup matchingSetup = Setup.GetPropertySetup(propertyName);
 		matchingSetup.InvokeSetter(invocation, value);
 	}
@@ -101,7 +107,7 @@ public abstract class Mock<T> : IMock
 	/// <inheritdoc cref="IMock.Get{TResult}(string)" />
 	TResult IMock.Get<TResult>(string propertyName)
 	{
-		Invocation invocation = Check.RegisterInvocation(new PropertyGetterInvocation(propertyName));
+		Invocation invocation = Invoked.RegisterInvocation(new PropertyGetterInvocation(propertyName));
 		PropertySetup matchingSetup = Setup.GetPropertySetup(propertyName);
 		return matchingSetup.InvokeGetter<TResult>(invocation);
 	}
