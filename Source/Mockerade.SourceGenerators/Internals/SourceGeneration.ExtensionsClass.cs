@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Text;
+﻿using System.Text;
 using Microsoft.CodeAnalysis;
 using Mockerade.SourceGenerators.Entities;
 using Type = Mockerade.SourceGenerators.Entities.Type;
