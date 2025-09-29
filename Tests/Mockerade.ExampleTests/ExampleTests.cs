@@ -17,7 +17,21 @@ public class ExampleTests
 		var result = mock.Object.AddUser("Bob");
 
 		await That(result).IsEqualTo(new User(id, "Alice"));
-		await That(mock.Invoked.AddUser("Bob").Once()).IsTrue();
+		await That(mock.Invoked.AddUser("Bob").Once());
+	}
+
+	[Fact]
+	public async Task BaseClassWithConstructorParameters()
+	{
+		var id = Guid.NewGuid();
+		var mock = Mock.For<MyClass>(BaseClass.WithConstructorParameters(3));
+
+		mock.Setup.MyMethod().Returns(5);
+		
+		var result = mock.Object.MyMethod();
+
+		await That(result).IsEqualTo(5);
+		await That(mock.Invoked.MyMethod().Once());
 	}
 
 	[Theory]
@@ -25,6 +39,7 @@ public class ExampleTests
 	[InlineData("Bob", false)]
 	public async Task WithMatching_ShouldAlwaysMatch(string name, bool expectResult)
 	{
+		Activator.CreateInstance(typeof(object));
 		var id = Guid.NewGuid();
 		var mock = Mock.For<IExampleRepository>();
 
@@ -35,7 +50,7 @@ public class ExampleTests
 		var result = mock.Object.AddUser(name);
 
 		await That(result).IsEqualTo(expectResult ? new User(id, "Alice") : null);
-		await That(mock.Invoked.AddUser(name).Once()).IsTrue();
+		await That(mock.Invoked.AddUser(name).Once());
 	}
 
 	[Theory]
@@ -55,7 +70,7 @@ public class ExampleTests
 
 		await That(deletedUser).IsEqualTo(new User(id, "Alice"));
 		await That(result).IsEqualTo(returnValue);
-		await That(mock.Invoked.TryDelete(id, With.Out<User?>()).Once()).IsTrue();
+		await That(mock.Invoked.TryDelete(id, With.Out<User?>()).Once());
 	}
 
 	[Fact]
@@ -97,7 +112,7 @@ public class ExampleTests
 		var result = mock.ObjectForIOrderRepository.AddOrder("foo");
 
 		await That(result.Name).IsEqualTo("Order1");
-		await That(mock.InvokedOnIOrderRepository.AddOrder("foo").Once()).IsTrue();
+		await That(mock.InvokedOnIOrderRepository.AddOrder("foo").Once());
 		await That(mock.Object).Is<IExampleRepository>();
 		await That(mock.Object).Is<IOrderRepository>();
 	}
