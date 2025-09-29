@@ -39,7 +39,6 @@ public class ExampleTests
 	[InlineData("Bob", false)]
 	public async Task WithMatching_ShouldAlwaysMatch(string name, bool expectResult)
 	{
-		Activator.CreateInstance(typeof(object));
 		var id = Guid.NewGuid();
 		var mock = Mock.For<IExampleRepository>();
 
