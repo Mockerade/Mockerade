@@ -97,7 +97,6 @@ public sealed partial class MockTests
 		var sut = Mock.For<IMyService>();
 		sut.Setup.IsValid.InitializeWith(true);
 
-
 		var result1 = sut.Object.IsValid;
 		sut.Object.IsValid = null;
 		var result2 = sut.Object.IsValid;
