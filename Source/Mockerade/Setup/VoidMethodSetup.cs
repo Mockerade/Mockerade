@@ -183,7 +183,7 @@ public class VoidMethodSetup<T1, T2>(string name, With.NamedParameter match1, Wi
 }
 
 /// <summary>
-///     Setup for a method with two parameters <typeparamref name="T1" />, <typeparamref name="T2" /> and <typeparamref name="T3" /> returning <see langword="void" />.
+///     Setup for a method with three parameters <typeparamref name="T1" />, <typeparamref name="T2" /> and <typeparamref name="T3" /> returning <see langword="void" />.
 /// </summary>
 public class VoidMethodSetup<T1, T2, T3>(string name, With.NamedParameter match1, With.NamedParameter match2, With.NamedParameter match3) : MethodSetup
 {
@@ -256,7 +256,7 @@ public class VoidMethodSetup<T1, T2, T3>(string name, With.NamedParameter match1
 }
 
 /// <summary>
-///     Setup for a method with two parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" /> and <typeparamref name="T4" /> returning <see langword="void" />.
+///     Setup for a method with four parameters <typeparamref name="T1" />, <typeparamref name="T2" />, <typeparamref name="T3" /> and <typeparamref name="T4" /> returning <see langword="void" />.
 /// </summary>
 public class VoidMethodSetup<T1, T2, T3, T4>(string name, With.NamedParameter match1, With.NamedParameter match2, With.NamedParameter match3, With.NamedParameter match4) : MethodSetup
 {
