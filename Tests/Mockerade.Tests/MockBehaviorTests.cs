@@ -100,7 +100,7 @@ public class MockBehaviorTests
 	private sealed class MyDefaultValueGenerator : MockBehavior.IDefaultValueGenerator
 	{
 		public T Generate<T>() {
-		  if (typeof(T) == typeof(string))
+			if (typeof(T) == typeof(string))
 			{
 				return (T)((object)"foo");
 			}
