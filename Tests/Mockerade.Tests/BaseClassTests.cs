@@ -18,6 +18,5 @@ public sealed class BaseClassTests
 		var result = BaseClass.WithConstructorParameters(null);
 
 		await That(result.Parameters).HasSingle().Which.IsNull();
-		;
 	}
 }
