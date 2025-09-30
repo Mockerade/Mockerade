@@ -87,7 +87,8 @@ public class MockBehaviorTests
 	[Fact]
 	public async Task ShouldSupportWithSyntax()
 	{
-		var sut = MockBehavior.Default with {
+		var sut = MockBehavior.Default with
+		{
 			ThrowWhenNotSetup = true,
 			DefaultValueGenerator = new MyDefaultValueGenerator()
 		};
@@ -99,7 +100,8 @@ public class MockBehaviorTests
 
 	private sealed class MyDefaultValueGenerator : MockBehavior.IDefaultValueGenerator
 	{
-		public T Generate<T>() {
+		public T Generate<T>()
+		{
 			if (typeof(T) == typeof(string))
 			{
 				return (T)((object)"foo");
