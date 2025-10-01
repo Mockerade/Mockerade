@@ -218,7 +218,7 @@ internal static partial class SourceGeneration
 			else
 			{
 				sb.Append("\t\t").Append(@event.Accessibility.ToVisibilityString()).Append(' ');
-				if (!@class.IsInterface && @event.IsVirtual)
+				if (!@class.IsInterface && @event.UseOverride)
 				{
 					sb.Append("override ");
 				}
@@ -246,7 +246,7 @@ internal static partial class SourceGeneration
 			else
 			{
 				sb.Append("\t\t").Append(property.Accessibility.ToVisibilityString()).Append(' ');
-				if (!@class.IsInterface && property.IsVirtual)
+				if (!@class.IsInterface && property.UseOverride)
 				{
 					sb.Append("override ");
 				}
@@ -303,7 +303,7 @@ internal static partial class SourceGeneration
 			else
 			{
 				sb.Append("\t\t").Append(method.Accessibility.ToVisibilityString()).Append(' ');
-				if (!@class.IsInterface && method.IsVirtual)
+				if (!@class.IsInterface && method.UseOverride)
 				{
 					sb.Append("override ");
 				}

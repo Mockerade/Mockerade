@@ -1,4 +1,7 @@
-﻿using Mockerade.Tests.Dummy;
+﻿using System.Net;
+using System.Net.Http;
+using System.Threading;
+using Mockerade.Tests.Dummy;
 
 namespace Mockerade.ExampleTests;
 
@@ -19,6 +22,26 @@ public class ExampleTests
 		await That(result).IsEqualTo(new User(id, "Alice"));
 		await That(mock.Invoked.AddUser("Bob").Once());
 	}
+
+#if NET8_0_OR_GREATER
+	[Theory]
+	[InlineData(HttpStatusCode.OK)]
+	[InlineData(HttpStatusCode.NotFound)]
+	[InlineData(HttpStatusCode.ServiceUnavailable)]
+	public async Task HttpClientTest(System.Net.HttpStatusCode statusCode)
+	{
+		var mock = Mock.For<HttpMessageHandler>();
+		mock.Protected.Setup
+			.SendAsync(With.Any<HttpRequestMessage>(), With.Any<CancellationToken>())
+			.Returns(Task.FromResult(new HttpResponseMessage(statusCode)));
+
+		var httpClient = new HttpClient(mock.Object);
+
+		var result = await httpClient.GetAsync("https://www.example.com", TestContext.Current.CancellationToken);
+
+		await That(result.StatusCode).IsEqualTo(statusCode);
+	}
+#endif
 
 	[Fact]
 	public async Task BaseClassWithConstructorParameters()

@@ -54,9 +54,9 @@ internal static partial class SourceGeneration
 
 	private static bool AppendProtectedMock(StringBuilder sb, Class @class, string[] namespaces)
 	{
-		if (@class.Events.All(@event => @event.Accessibility != Accessibility.Protected) &&
-			@class.Methods.All(method => method.Accessibility != Accessibility.Protected) &&
-			@class.Properties.All(property => property.Accessibility != Accessibility.Protected))
+		if (@class.Events.All(@event => @event.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal) &&
+			@class.Methods.All(method => method.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal) &&
+			@class.Properties.All(property => property.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal))
 		{
 			return false;
 		}
@@ -76,8 +76,8 @@ internal static partial class SourceGeneration
 	private static void AppendRaisesExtensions(StringBuilder sb, Class @class, string[] namespaces, bool isProtected = false)
 	{
 		var predicate = isProtected
-			? new Func<Event, bool>(e => e.Accessibility == Accessibility.Protected)
-			: new Func<Event, bool>(e => e.Accessibility != Accessibility.Protected);
+			? new Func<Event, bool>(e => e.Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal)
+			: new Func<Event, bool>(e => e.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal);
 		if (!@class.Events.Any(predicate))
 		{
 			return;
@@ -107,11 +107,11 @@ internal static partial class SourceGeneration
 	private static void AppendSetupExtensions(StringBuilder sb, Class @class, string[] namespaces, bool isProtected = false)
 	{
 		var methodPredicate = isProtected
-			? new Func<Method, bool>(e => e.Accessibility == Accessibility.Protected)
-			: new Func<Method, bool>(e => e.Accessibility != Accessibility.Protected);
+			? new Func<Method, bool>(e => e.Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal)
+			: new Func<Method, bool>(e => e.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal);
 		var propertyPredicate = isProtected
-			? new Func<Property, bool>(e => e.Accessibility == Accessibility.Protected)
-			: new Func<Property, bool>(e => e.Accessibility != Accessibility.Protected);
+			? new Func<Property, bool>(e => e.Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal)
+			: new Func<Property, bool>(e => e.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal);
 		if (!@class.Properties.Any(propertyPredicate) &&
 			!@class.Methods.Any(methodPredicate))
 		{
@@ -263,8 +263,8 @@ internal static partial class SourceGeneration
 	private static void AppendInvokedExtensions(StringBuilder sb, Class @class, string[] namespaces, bool isProtected = false)
 	{
 		var predicate = isProtected
-			? new Func<Method, bool>(e => e.Accessibility == Accessibility.Protected)
-			: new Func<Method, bool>(e => e.Accessibility != Accessibility.Protected);
+			? new Func<Method, bool>(e => e.Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal)
+			: new Func<Method, bool>(e => e.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal);
 		if (!@class.Methods.Any(predicate))
 		{
 			return;
@@ -316,8 +316,8 @@ internal static partial class SourceGeneration
 	private static void AppendAccessedExtensions(StringBuilder sb, Class @class, string[] namespaces, bool isProtected = false)
 	{
 		var predicate = isProtected
-			? new Func<Property, bool>(e => e.Accessibility == Accessibility.Protected)
-			: new Func<Property, bool>(e => e.Accessibility != Accessibility.Protected);
+			? new Func<Property, bool>(e => e.Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal)
+			: new Func<Property, bool>(e => e.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal);
 		if (!@class.Properties.Any(predicate))
 		{
 			return;
@@ -345,8 +345,8 @@ internal static partial class SourceGeneration
 	private static void AppendEventExtensions(StringBuilder sb, Class @class, string[] namespaces, bool isProtected = false)
 	{
 		var predicate = isProtected
-			? new Func<Event, bool>(e => e.Accessibility == Accessibility.Protected)
-			: new Func<Event, bool>(e => e.Accessibility != Accessibility.Protected);
+			? new Func<Event, bool>(e => e.Accessibility is Accessibility.Protected or Accessibility.ProtectedOrInternal)
+			: new Func<Event, bool>(e => e.Accessibility is not Accessibility.Protected or Accessibility.ProtectedOrInternal);
 		if (!@class.Events.Any(predicate))
 		{
 			return;
