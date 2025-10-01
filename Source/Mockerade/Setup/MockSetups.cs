@@ -9,7 +9,7 @@ using Mockerade.Exceptions;
 namespace Mockerade.Setup;
 
 /// <summary>
-///     Setup the mock for <typeparamref name="T"/>.
+///     Sets up the mock for <typeparamref name="T"/>.
 /// </summary>
 public class MockSetups<T>(IMock mock) : IMockSetup
 {
@@ -40,7 +40,7 @@ public class MockSetups<T>(IMock mock) : IMockSetup
 	}
 
 	/// <summary>
-	///     Setup the protected elements of the mock for <typeparamref name="T"/>.
+	///     Sets up the protected elements of the mock for <typeparamref name="T"/>.
 	/// </summary>
 	public class Protected(IMockSetup inner) : MockSetups<T>(inner.Mock), IMockSetup
 	{

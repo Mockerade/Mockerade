@@ -27,7 +27,7 @@ public class MockAccessed<T>(MockInvocations invocations) : IMockAccessed
 	/// <summary>
 	///     Check which protected properties were accessed on the mocked instance for <typeparamref name="T"/>.
 	/// </summary>
-	public class Protected(IMockAccessed inner, MockInvocations invocations) : MockInvoked<T>(invocations), IMockAccessed
+	public class Protected(IMockAccessed inner, MockInvocations invocations) : MockAccessed<T>(invocations), IMockAccessed
 	{
 		/// <inheritdoc cref="IMockAccessed.PropertyGetter(string)" />
 		Invocation[] IMockAccessed.PropertyGetter(string propertyName)

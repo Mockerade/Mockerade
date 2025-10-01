@@ -164,7 +164,7 @@ internal static partial class SourceGeneration
 				sb.AppendLine();
 			}
 			sb.Append("\t\t/// <summary>").AppendLine();
-			sb.Append("\t\t///     Setup the mock for <see cref=\"").Append(@class.ClassName).Append("\" />").AppendLine();
+			sb.Append("\t\t///     Sets up the mock for <see cref=\"").Append(@class.ClassName).Append("\" />").AppendLine();
 			sb.Append("\t\t/// </summary>").AppendLine();
 			sb.Append("\t\tpublic MockSetups<").Append(@class.ClassName).Append("> Setup").Append(@class.ClassName).AppendLine();
 			sb.Append("\t\t\t=> new MockSetups<").Append(@class.ClassName).Append(">.Proxy(mock.Setup);").AppendLine();

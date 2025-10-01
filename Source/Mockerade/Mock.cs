@@ -51,7 +51,7 @@ public abstract class Mock<T> : IMock
 	public MockRaises<T> Raise { get; }
 
 	/// <summary>
-	///     Setup the mock for <typeparamref name="T"/>.
+	///     Sets up the mock for <typeparamref name="T"/>.
 	/// </summary>
 	public MockSetups<T> Setup { get; }
 

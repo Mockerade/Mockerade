@@ -43,7 +43,7 @@ public class ProtectedMock<T>(Mock<T> mock) : IMock
 		=> new MockRaises<T>.Protected(_mock.Raise, _mock.Setup, _inner.Invocations);
 
 	/// <summary>
-	///     Setup the mock for <typeparamref name="T"/>.
+	///     Sets up the mock for <typeparamref name="T"/>.
 	/// </summary>
 	public MockSetups<T>.Protected Setup
 		=> new MockSetups<T>.Protected(_inner.Setup);
