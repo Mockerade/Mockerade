@@ -35,6 +35,54 @@ internal static partial class SourceGeneration
 		return sb.ToString();
 	}
 
+	public static string GetReturnsAsyncExtensions(int[] numberOfParameters)
+	{
+		StringBuilder sb = new();
+		sb.AppendLine(Header);
+		sb.Append("""
+		          using System;
+		          using Mockerade.Setup;
+
+		          namespace Mockerade;
+
+		          #nullable enable
+
+		          """);
+		sb.AppendLine();
+		sb.Append("/// <summary>").AppendLine();
+		sb.Append("///     Extensions for setting up asynchronous return values.").AppendLine();
+		sb.Append("/// </summary>").AppendLine();
+		sb.Append("public static class ReturnsAsyncExtensions2").AppendLine();
+		sb.Append("{").AppendLine();
+		foreach (var number in numberOfParameters)
+		{
+			var types = string.Join(", ", Enumerable.Range(1, number).Select(i => $"T{i}"));
+			var variables = string.Join(", ", Enumerable.Range(1, number).Select(i => $"v{i}"));
+			sb.Append("\t/// <summary>").AppendLine();
+			sb.Append("\t///     Registers the <see langword=\"async\" /> <paramref name=\"returnValue\" /> for this method.").AppendLine();
+			sb.Append("\t/// </summary>").AppendLine();
+			sb.Append("\tpublic static ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> ReturnsAsync<TReturn, ").Append(types).Append(">(this ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> setup, TReturn returnValue)").AppendLine();
+			sb.Append("\t\t=> setup.Returns(Task.FromResult(returnValue));");
+			sb.AppendLine();
+			sb.Append("\t/// <summary>").AppendLine();
+			sb.Append("\t///     Registers an <see langword=\"async\" /> <paramref name=\"callback\" /> to setup the return value for this method.").AppendLine();
+			sb.Append("\t/// </summary>").AppendLine();
+			sb.Append("\tpublic static ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> ReturnsAsync<TReturn, ").Append(types).Append(">(this ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> setup, Func<TReturn> callback)").AppendLine();
+			sb.Append("\t\t=> setup.Returns(Task.FromResult(callback()));");
+			sb.AppendLine();
+			sb.Append("\t/// <summary>").AppendLine();
+			sb.Append("\t///     Registers an <see langword=\"async\" /> <paramref name=\"callback\" /> to setup the return value for this method.").AppendLine();
+			sb.Append("\t/// </summary>").AppendLine();
+			sb.Append("\tpublic static ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> ReturnsAsync<TReturn, ").Append(types).Append(">(this ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> setup, Func<").Append(types).Append(", TReturn> callback)").AppendLine();
+			sb.Append("\t\t=> setup.Returns((").Append(variables).Append(") => Task.FromResult(callback(").Append(variables).Append(")));");
+			sb.AppendLine();
+		}
+		sb.Append("}").AppendLine();
+
+		sb.AppendLine("#nullable disable");
+		return sb.ToString();
+	}
+
 	private static void AppendVoidMethod(StringBuilder sb, int numberOfParameters)
 	{
 		string typeParams = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i}"));
