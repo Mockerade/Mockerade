@@ -57,10 +57,6 @@ internal record Class
 	internal IEnumerable<string> EnumerateNamespaces()
 	{
 		yield return Namespace;
-		if (ContainingType?.Namespace is not null)
-		{
-			yield return ContainingType.Value.Namespace;
-		}
 		foreach (Method method in Methods)
 		{
 			if (method.ReturnType.Namespace != null)

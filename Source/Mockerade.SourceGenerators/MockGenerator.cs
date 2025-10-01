@@ -56,7 +56,7 @@ public class MockGenerator : IIncrementalGenerator
 		{
 			string result = SourceGeneration.GetMockClass(mockToGenerate.Name, mockToGenerate.MockClass);
 			// Create a separate class file for each mock
-			var fileName = $"For{mockToGenerate.Name.Replace('.', '_')}.g.cs";
+			var fileName = $"For{mockToGenerate.Name}.g.cs";
 			context.AddSource(fileName, SourceText.From(result, Encoding.UTF8));
 		}
 		

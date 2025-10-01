@@ -51,7 +51,7 @@ internal static partial class SourceGeneration
 			}
 			sb.AppendLine(")");
 			sb.Append("\t\t\t{").AppendLine();
-			sb.Append("\t\t\t\t_value = new For").Append(mock.Name.Replace('.', '_')).Append(".Mock(constructorParameters, mockBehavior);").AppendLine();
+			sb.Append("\t\t\t\t_value = new For").Append(mock.Name).Append(".Mock(constructorParameters, mockBehavior);").AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 		}
 
