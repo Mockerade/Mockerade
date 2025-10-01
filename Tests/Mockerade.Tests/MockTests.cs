@@ -46,8 +46,6 @@ public sealed partial class MockTests
 		public int Double(int value);
 
 		public void SetIsValid(bool isValid);
-
-		//TODO: public void GetValues(int p1, int p2, int p3, int p4, int p5);
 	}
 
 	public class MyBaseClass
