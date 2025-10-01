@@ -179,7 +179,7 @@ namespace Mockerade.Checks
     public class MockAccessed<T> : Mockerade.Checks.IMockAccessed
     {
         public MockAccessed(Mockerade.Checks.MockInvocations invocations) { }
-        public class Protected : Mockerade.Checks.MockInvoked<T>, Mockerade.Checks.IMockAccessed
+        public class Protected : Mockerade.Checks.MockAccessed<T>, Mockerade.Checks.IMockAccessed
         {
             public Protected(Mockerade.Checks.IMockAccessed inner, Mockerade.Checks.MockInvocations invocations) { }
         }
