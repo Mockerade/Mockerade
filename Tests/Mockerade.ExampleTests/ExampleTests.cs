@@ -26,12 +26,12 @@ public class ExampleTests
 		var id = Guid.NewGuid();
 		var mock = Mock.For<MyClass>(BaseClass.WithConstructorParameters(3));
 
-		mock.Setup.MyMethod().Returns(5);
+		mock.Setup.MyMethod(With.Any<int>()).Returns(5);
 		
-		var result = mock.Object.MyMethod();
+		var result = mock.Object.MyMethod(3);
 
 		await That(result).IsEqualTo(5);
-		await That(mock.Invoked.MyMethod().Once());
+		await That(mock.Invoked.MyMethod(With.Any<int>()).Once());
 	}
 
 	[Theory]
