@@ -37,7 +37,7 @@ internal static partial class SourceGeneration
 			sb.Append("\t///     Registers an <see langword=\"async\" /> <paramref name=\"callback\" /> to setup the return value for this method.").AppendLine();
 			sb.Append("\t/// </summary>").AppendLine();
 			sb.Append("\tpublic static ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> ReturnsAsync<TReturn, ").Append(types).Append(">(this ReturnMethodSetup<Task<TReturn>, ").Append(types).Append("> setup, Func<TReturn> callback)").AppendLine();
-			sb.Append("\t\t=> setup.Returns(Task.FromResult(callback()));");
+			sb.Append("\t\t=> setup.Returns(() => Task.FromResult(callback()));");
 			sb.AppendLine();
 			sb.Append("\t/// <summary>").AppendLine();
 			sb.Append("\t///     Registers an <see langword=\"async\" /> <paramref name=\"callback\" /> to setup the return value for this method.").AppendLine();
@@ -62,7 +62,7 @@ internal static partial class SourceGeneration
 			sb.Append("\t///     Registers an <see langword=\"async\" /> <paramref name=\"callback\" /> to setup the return value for this method.").AppendLine();
 			sb.Append("\t/// </summary>").AppendLine();
 			sb.Append("\tpublic static ReturnMethodSetup<ValueTask<TReturn>, ").Append(types).Append("> ReturnsAsync<TReturn, ").Append(types).Append(">(this ReturnMethodSetup<ValueTask<TReturn>, ").Append(types).Append("> setup, Func<TReturn> callback)").AppendLine();
-			sb.Append("\t\t=> setup.Returns(ValueTask.FromResult(callback()));");
+			sb.Append("\t\t=> setup.Returns(() => ValueTask.FromResult(callback()));");
 			sb.AppendLine();
 			sb.Append("\t/// <summary>").AppendLine();
 			sb.Append("\t///     Registers an <see langword=\"async\" /> <paramref name=\"callback\" /> to setup the return value for this method.").AppendLine();
