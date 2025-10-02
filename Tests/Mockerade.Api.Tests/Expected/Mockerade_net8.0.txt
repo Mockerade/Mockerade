@@ -43,6 +43,7 @@ namespace Mockerade
         public abstract T Object { get; }
         public Mockerade.Events.MockRaises<T> Raise { get; }
         public Mockerade.Setup.MockSetups<T> Setup { get; }
+        protected TObject TryCreate<TObject>(Mockerade.BaseClass.ConstructorParameters? constructorParameters) { }
         public static T op_Implicit(Mockerade.Mock<T> mock) { }
     }
     public abstract class Mock<T1, T2> : Mockerade.Mock<T1>
