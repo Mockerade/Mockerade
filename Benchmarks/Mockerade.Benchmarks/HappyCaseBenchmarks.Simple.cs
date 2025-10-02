@@ -49,7 +49,7 @@ public partial class HappyCaseBenchmarks
 
 		mock.MyFunc(42);
 
-		mock.Received().MyFunc(Arg.Any<int>());
+		mock.Received(1).MyFunc(Arg.Any<int>());
 	}
 
 	/// <summary>
@@ -63,11 +63,11 @@ public partial class HappyCaseBenchmarks
 
 		mock.MyFunc(42);
 
-		A.CallTo(() => mock.MyFunc(A<int>.Ignored)).MustHaveHappened();
+		A.CallTo(() => mock.MyFunc(A<int>.Ignored)).MustHaveHappened(1, Times.Exactly);
 	}
-}
 
-public interface IMyInterface
-{
-	bool MyFunc(int value);
+	public interface IMyInterface
+	{
+		bool MyFunc(int value);
+	}
 }

@@ -13,11 +13,12 @@
 	<ItemGroup>
 		<PackageReference Include="BenchmarkDotNet"/>
 		<PackageReference Include="aweXpect"/>
+		<ProjectReference Include="..\..\Source\Mockerade.SourceGenerators\Mockerade.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\Source\Mockerade\Mockerade.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Moq"/>
-		<PackageReference Include="Mockerade"/>
 		<PackageReference Include="NSubstitute"/>
 		<PackageReference Include="FakeItEasy"/>
 	</ItemGroup>
