@@ -11,7 +11,7 @@ public class ExampleTests
 	public async Task WithAny_ShouldAlwaysMatch()
 	{
 		var id = Guid.NewGuid();
-		var mock = Mock.For<MyClass, IExampleRepository, IOrderRepository>();
+		var mock = Mock.For<MyClass, IExampleRepository, IOrderRepository>(BaseClass.WithConstructorParameters(3));
 		mock.SetupIExampleRepository.AddUser(
 				With.Any<string>())
 			.Returns(new User(id, "Alice"));

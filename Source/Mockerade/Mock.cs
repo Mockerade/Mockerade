@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Mockerade.Checks;
 using Mockerade.Events;
 using Mockerade.Exceptions;
 using Mockerade.Setup;
+using static Mockerade.BaseClass;
 
 namespace Mockerade;
 
@@ -141,6 +143,35 @@ public abstract class Mock<T> : IMock
 	public static implicit operator T(Mock<T> mock)
 	{
 		return mock.Object;
+	}
+
+	/// <summary>
+	///     Attempts to create an instance of the specified type using the provided constructor parameters.
+	/// </summary>
+	protected TObject TryCreate<TObject>(BaseClass.ConstructorParameters? constructorParameters)
+	{
+		if (constructorParameters is null)
+		{
+			try
+			{
+				return (TObject)Activator.CreateInstance(typeof(TObject), [this,])!;
+			}
+			catch
+			{
+				throw new MockException($"Could not create an instance of '{typeof(TObject)}' without constructor parameters.");
+			}
+		}
+		else
+		{
+			try
+			{
+				return (TObject)Activator.CreateInstance(typeof(TObject), [this, .. constructorParameters.Parameters])!;
+			}
+			catch
+			{
+				throw new MockException($"Could not create an instance of '{typeof(TObject)}' with {constructorParameters.Parameters.Length} parameters ({string.Join(", ", constructorParameters.Parameters)}).");
+			}
+		}
 	}
 }
 
