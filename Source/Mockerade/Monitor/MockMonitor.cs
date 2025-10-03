@@ -20,7 +20,7 @@ public abstract class MockMonitor
 	/// <summary>
 	///     The invocations that were recorded during the monitoring session.
 	/// </summary>
-	protected MockInvocations Invocations { get; } = new();
+	protected MockInvocations Invocations { get; }
 	private int _monitoringStart = -1;
 
 	/// <inheritdoc cref="MockMonitor{T}" />
