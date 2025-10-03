@@ -8,7 +8,7 @@ internal record Class
 	public Class(ITypeSymbol type)
 	{
 		Namespace = type.ContainingNamespace.ToString();
-		ClassName = type.Name;
+		ClassName = type.ToString();
 
 		if (type.ContainingType is not null)
 		{
@@ -51,7 +51,10 @@ internal record Class
 	public string ClassName { get; }
 
 	public string GetClassNameWithoutDots()
-		=> ClassName.Replace(".", "");
+		=> ClassName
+		.Replace(".", "")
+		.Replace("<", "")
+		.Replace(">", "");
 
 	public string[] GetClassNamespaces() => EnumerateNamespaces().Distinct().OrderBy(n => n).ToArray();
 	internal IEnumerable<string> EnumerateNamespaces()
