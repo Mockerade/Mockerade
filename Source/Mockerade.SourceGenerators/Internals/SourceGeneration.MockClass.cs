@@ -13,7 +13,7 @@ internal static partial class SourceGeneration
 		string[] namespaces = [.. mockClass.GetAllNamespaces(), "Mockerade.Checks", "Mockerade.Events", "Mockerade.Setup"];
 		StringBuilder sb = new();
 		sb.AppendLine(Header);
-		foreach (string @namespace in namespaces.Distinct().OrderBy(n => n).ToArray())
+		foreach (string @namespace in namespaces.Distinct().OrderBy(n => n))
 		{
 			sb.Append("using ").Append(@namespace).AppendLine(";");
 		}
