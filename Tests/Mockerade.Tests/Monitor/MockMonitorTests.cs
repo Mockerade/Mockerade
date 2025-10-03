@@ -67,6 +67,25 @@ public sealed class MockMonitorTests
 	}
 
 	[Fact]
+	public async Task NestedRun_ShouldThrowInvalidOperationException()
+	{
+		var mock = Mock.For<IMyService>();
+		var monitor = mock.Monitor();
+
+		void Act()
+			=> monitor.Run();
+
+		var outerRun = monitor.Run();
+
+		await That(Act).Throws<InvalidOperationException>()
+			.WithMessage("Monitoring is already running. Dispose the previous scope before starting a new one.");
+
+		outerRun.Dispose();
+
+		await That(Act).DoesNotThrow();
+	}
+
+	[Fact]
 	public async Task DisposeTwice_ShouldNotIncludeMoreInvocations()
 	{
 		var mock = Mock.For<IMyService>();

@@ -41,6 +41,11 @@ public abstract class MockMonitor
 	/// </returns>
 	public IDisposable Run()
 	{
+		if (_monitoringStart >= 0)
+		{
+			throw new InvalidOperationException("Monitoring is already running. Dispose the previous scope before starting a new one.");
+		}
+
 		_monitoringStart = _monitoredInvocations.Count;
 		return new MonitorScope(() => this.Stop());
 	}
