@@ -94,8 +94,8 @@ public sealed class MockMonitorTests
 		mock.Object.IsValid(1);
 		mock.Object.IsValid(2);
 		var disposable = monitor.Run();
-			mock.Object.IsValid(3);
-			mock.Object.IsValid(4);
+		mock.Object.IsValid(3);
+		mock.Object.IsValid(4);
 		disposable.Dispose();
 		mock.Object.IsValid(5);
 		mock.Object.IsValid(6);
