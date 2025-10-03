@@ -72,7 +72,7 @@ internal record Class
 				.Select(x => new Method(x))
 				.Distinct()
 				.ToList();
-		for (int i=0;i<methods.Count;i++)
+		for (int i = 0; i < methods.Count; i++)
 		{
 			var method = methods[i];
 			if (methods.Take(i)
