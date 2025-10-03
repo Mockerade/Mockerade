@@ -10,22 +10,25 @@ namespace Mockerade.Checks;
 public class MockInvocations
 {
 	/// <summary>
-	/// Indicates whether (at least) one invocation was already triggered.
+	///     Indicates whether (at least) one invocation was already triggered.
 	/// </summary>
 	public bool IsAlreadyInvoked => _invocations.Count > 0;
 
-	private readonly List<(int Index, Invocation Invocation)> _invocations = [];
-	private int _index = 0;
+	/// <summary>
+	///     The number of invocations contained in the collection.
+	/// </summary>
+	public int Count => _invocations.Count;
+
+	private readonly List<Invocation> _invocations = [];
 
 	/// <summary>
 	///     The registered invocations of the mock.
 	/// </summary>
-	public IEnumerable<Invocation> Invocations => _invocations.Select(x => x.Invocation);
+	public IEnumerable<Invocation> Invocations => _invocations;
 
 	internal Invocation RegisterInvocation(Invocation invocation)
 	{
-		var index = Interlocked.Increment(ref _index);
-		_invocations.Add((index, invocation));
+		_invocations.Add(invocation);
 		return invocation;
 	}
 }

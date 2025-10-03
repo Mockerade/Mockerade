@@ -58,11 +58,6 @@ public abstract class Mock<T> : IMock
 	/// </summary>
 	public MockSetups<T> Setup { get; }
 
-	public MockMonitor<T> Monitor()
-	{
-		return new MockMonitor<T>(((IMock)this).Invocations);
-	}
-
 	#region IMock
 
 	/// <summary>
